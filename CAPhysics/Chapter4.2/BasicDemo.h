@@ -1,10 +1,13 @@
 #include "BulletOpenGLApplication.h"
 #include "btBulletDynamicsCommon.h"
 
+#define PI 3.14159265
+
 // Domino patterns
 enum Pattern{
 	SPIRAL,
-	LOGARITHMIC
+	LOGARITHMIC,
+	WAVE
 };
 
 class BasicDemo : public BulletOpenGLApplication {
@@ -15,6 +18,6 @@ public:
 	void CreateObjects();
 
 	// Create Domino patterns based on algorithm choice
-	void CreatePattern(int maxNumberOfDominos, int type);
+	void CreatePattern(int maxPoints, int type);
 
 };

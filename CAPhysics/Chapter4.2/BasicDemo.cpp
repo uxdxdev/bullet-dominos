@@ -1,4 +1,5 @@
 #include "BasicDemo.h"
+#include <math.h>
 
 void BasicDemo::InitializePhysics() {
 	// create the collision configuration
@@ -36,24 +37,42 @@ void BasicDemo::CreateObjects() {
 	CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(3.0f, 0.0f, -0.4f));
 
 	// Create domino patterns using enum in BasicDemo.h
-	CreatePattern(20, LOGARITHMIC);
+	CreatePattern(100, SPIRAL);
 }
 
-void BasicDemo::CreatePattern(int maxNumberOfDominos, int type)
+void BasicDemo::CreatePattern(int maxPoints, int type)
 {
 	if (type == SPIRAL)
 	{
 		// create spiral dominos
+		int x = 0;
+		int y = 0;
+		float angle = 0.0f;
+		int a = 3, b = 3;
+
+		for (int i = 0; i < maxPoints; i++)
+		{
+			angle = 0.1 * i;
+			x = (a + b * angle) * cos(angle);
+			y = (a + b * angle) * sin(angle);
+
+			CreateGameObject(new btBoxShape(btVector3(1.5f, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
+
+		}
 	}
 	else if (type == LOGARITHMIC)
 	{
-		// create log dominos
-		int c, first = 0, second = 1, next;
+		// Log pattern
+	}
+	else if (type == WAVE)
+	{
+		int x, y, first = 0, second = 1, next;
 
-		for (c = 0; c < maxNumberOfDominos; c++)
+		// X Axis
+		for (x = 0; x < maxPoints; x++)
 		{
-			if (c <= 1)
-				next = c;
+			if (x <= 1)
+				next = x;
 			else
 			{
 				next = first + second;
@@ -61,8 +80,9 @@ void BasicDemo::CreatePattern(int maxNumberOfDominos, int type)
 				second = next;
 			}
 
-			CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)c /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)-c /* Depth */));
+			y = sin(x) - 0.5*x;
 
+			CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
 		}
-	}	
+	}
 }
