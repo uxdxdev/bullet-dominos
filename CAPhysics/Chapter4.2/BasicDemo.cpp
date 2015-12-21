@@ -37,7 +37,7 @@ void BasicDemo::CreateObjects() {
 	CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(3.0f, 0.0f, -0.4f));
 
 	// Create domino patterns using enum in BasicDemo.h
-	CreatePattern(100, SPIRAL);
+	CreatePattern(150, SPIRAL);
 }
 
 void BasicDemo::CreatePattern(int maxPoints, int type)
@@ -45,8 +45,8 @@ void BasicDemo::CreatePattern(int maxPoints, int type)
 	if (type == SPIRAL)
 	{
 		// create spiral dominos
-		int x = 0;
-		int y = 0;
+		float x = 0;
+		float y = 0;
 		float angle = 0.0f;
 		int a = 3, b = 3;
 
