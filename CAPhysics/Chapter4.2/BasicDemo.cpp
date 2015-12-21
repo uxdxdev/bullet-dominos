@@ -35,12 +35,34 @@ void BasicDemo::CreateObjects() {
 	CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 0.0f, -0.2f));
 	CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(3.0f, 0.0f, -0.4f));
 
-	// Set up dominos using some calculation like Sin/Cos/Tan to make a huge map of dominos
-	// TODO: Change camera angle to get a better view of the dominos (david)
-	for (int i = 0; i < 10; i++)
-	{
-		CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)i/* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)-i /* Depth */));
-	}
-	
+	// Create domino patterns using enum in BasicDemo.h
+	CreatePattern(20, LOGARITHMIC);
+}
 
+void BasicDemo::CreatePattern(int maxNumberOfDominos, int type)
+{
+	if (type == SPIRAL)
+	{
+		// create spiral dominos
+	}
+	else if (type == LOGARITHMIC)
+	{
+		// create log dominos
+		int c, first = 0, second = 1, next;
+
+		for (c = 0; c < maxNumberOfDominos; c++)
+		{
+			if (c <= 1)
+				next = c;
+			else
+			{
+				next = first + second;
+				first = second;
+				second = next;
+			}
+
+			CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)c /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)-c /* Depth */));
+
+		}
+	}	
 }
