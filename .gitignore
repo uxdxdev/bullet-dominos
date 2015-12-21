@@ -237,6 +237,3 @@ Lib/
 Temp/
 freeglut.dll
 msvcr100d.dll
-*.sln
-*.vcxproj
-*.vcxproj.filters
