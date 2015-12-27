@@ -38,3 +38,54 @@ GameObject::~GameObject() {
 	delete m_pMotionState;
 	delete m_pShape;
 }
+
+void GameObject::setRotationPitch(float p) {
+	if (m_pBody)
+	{
+		//p = p * (MATH_PI / 180);
+
+		btTransform trans = m_pBody->getWorldTransform();
+		btQuaternion rot = trans.getRotation();
+
+		float angleDiff = p - rot.getX();
+		btQuaternion diffRot = btQuaternion(btVector3(1, 0, 0), angleDiff);
+		rot = diffRot * rot;
+
+		trans.setRotation(rot);
+		m_pBody->setWorldTransform(trans);
+	}
+}
+
+void GameObject::setRotationYaw(float y) {
+	if (m_pBody)
+	{
+		//y = y * (MATH_PI / 180);
+
+		btTransform trans = m_pBody->getWorldTransform();
+		btQuaternion rot = trans.getRotation();
+
+		float angleDiff = y - rot.getX();
+		btQuaternion diffRot = btQuaternion(btVector3(0, 1, 0), angleDiff);
+		rot = diffRot * rot;
+
+		trans.setRotation(rot);
+		m_pBody->setWorldTransform(trans);
+	}
+}
+
+void GameObject::setRotationRoll(float r) {
+	if (m_pBody)
+	{
+		//r = r * (MATH_PI / 180);
+
+		btTransform trans = m_pBody->getWorldTransform();
+		btQuaternion rot = trans.getRotation();
+
+		float angleDiff = r - rot.getX();
+		btQuaternion diffRot = btQuaternion(btVector3(0, 0, 1), angleDiff);
+		rot = diffRot * rot;
+
+		trans.setRotation(rot);
+		m_pBody->setWorldTransform(trans);
+	}
+}

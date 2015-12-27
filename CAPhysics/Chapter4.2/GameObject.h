@@ -1,6 +1,8 @@
 #ifndef _GAMEOBJECT_H_
 #define _GAMEOBJECT_H_
 
+#define MATH_PI 3.1459
+
 #include "btBulletDynamicsCommon.h"
 
 #include "OpenGLMotionState.h"
@@ -22,6 +24,9 @@ public:
 	}
 	
 	btVector3 GetColor() { return m_color; }
+	void setRotationPitch(float p);
+	void setRotationYaw(float y);
+	void setRotationRoll(float r);
 protected:
 	btCollisionShape*  m_pShape;
 	btRigidBody*    m_pBody;
