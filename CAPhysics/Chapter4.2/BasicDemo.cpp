@@ -66,7 +66,7 @@ void BasicDemo::CreatePattern(int maxPoints, int type)
 
 			GameObject* temp = CreateGameObject(new btBoxShape(btVector3(1.5f, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
 			temp->setRotationYaw(angle);
-			CreateGameObject(new btBoxShape(btVector3(2.0, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
+			//CreateGameObject(new btBoxShape(btVector3(2.0, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
 
 		}
 	}
