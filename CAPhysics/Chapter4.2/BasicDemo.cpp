@@ -41,8 +41,11 @@ void BasicDemo::CreateObjects() {
 	sphere->GetRigidBody()->applyCentralImpulse(btVector3(50.0f, 0, 0));
 	sphere->GetRigidBody()->applyTorque(btVector3(25.0f, 0, 0));
 
+	CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 8.0f, 0.0f));
+	CreateGameObject(new btBoxShape(btVector3(0.1,0.1,1.0)), 1.0, btVector3(1.0f, 0.2f, 0.2f), btVector3(0.0f, 0.0f, 0.0f));
+	
 	// Create domino patterns using enum in BasicDemo.h
-	CreatePattern(150, SPIRAL);
+	CreatePattern(200, SPIRAL);
 }
 
 void BasicDemo::CreatePattern(int maxPoints, int type)
@@ -53,9 +56,9 @@ void BasicDemo::CreatePattern(int maxPoints, int type)
 		float x = 0;
 		float y = 0;
 		float angle = 0.0f;
-		int a = 3, b = 3;
+		int a = 2, b = 2;
 
-		for (int i = 0; i < maxPoints; i++)
+		for (int i = 4; i < maxPoints; i++)
 		{
 			angle = 0.1 * i;
 			x = (a + b * angle) * cos(angle);
@@ -63,6 +66,8 @@ void BasicDemo::CreatePattern(int maxPoints, int type)
 
 			GameObject* temp = CreateGameObject(new btBoxShape(btVector3(1.5f, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
 			temp->setRotationYaw(angle);
+			CreateGameObject(new btBoxShape(btVector3(2.0, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
+
 		}
 	}
 	else if (type == LOGARITHMIC)
