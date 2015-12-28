@@ -76,7 +76,6 @@ void BasicDemo::CreatePattern(int maxPoints, int type)
 
 			float dirX = -(a + b * angle) * sin(angle) + (b * cos(angle));
 			float dirZ = (a + b * angle) * cos(angle) + (b * sin(angle));
-			//float newAngle = atan2(dirX, dirZ) * 180 / PI;
 			float newAngle = atan2(dirX, dirZ);
 			printf("dirX: %f - dirZ: %f - angle: %f\n", dirX, dirZ, newAngle);
 			temp->setRotationYaw(newAngle);
