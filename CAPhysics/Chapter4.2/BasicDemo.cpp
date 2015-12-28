@@ -37,15 +37,17 @@ void BasicDemo::CreateObjects() {
 	//CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 0.0f, -0.2f));
 	//CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(3.0f, 0.0f, -0.4f));
 
-	GameObject* sphere = CreateGameObject(new btSphereShape(1), 10.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(-0.5f, 0.0f, 0.0f));
-	sphere->GetRigidBody()->applyCentralImpulse(btVector3(50.0f, 0, 0));
-	sphere->GetRigidBody()->applyTorque(btVector3(25.0f, 0, 0));
+	
+	//GameObject* sphere = CreateGameObject(new btSphereShape(1), 10.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(-0.5f, 0.0f, 0.0f));
+	//sphere->GetRigidBody()->applyCentralImpulse(btVector3(50.0f, 0, 0));
+	//sphere->GetRigidBody()->applyTorque(btVector3(25.0f, 0, 0));
 
 	CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 8.0f, 0.0f));
-	CreateGameObject(new btBoxShape(btVector3(0.1,0.1,1.0)), 1.0, btVector3(1.0f, 0.2f, 0.2f), btVector3(0.0f, 0.0f, 0.0f));
+	//CreateGameObject(new btBoxShape(btVector3(0.1,0.1,1.0)), 1.0, btVector3(1.0f, 0.2f, 0.2f), btVector3(0.0f, 0.0f, 0.0f));
+	
 	
 	// Create domino patterns using enum in BasicDemo.h
-	CreatePattern(200, SPIRAL);
+	CreatePattern(100, SPIRAL);
 }
 
 void BasicDemo::CreatePattern(int maxPoints, int type)
@@ -54,20 +56,33 @@ void BasicDemo::CreatePattern(int maxPoints, int type)
 	{
 		// create spiral dominos
 		float x = 0;
-		float y = 0;
+		float z = 0;
 		float angle = 0.0f;
 		int a = 2, b = 2;
+		float previousX = 0.0f;
+		float previousZ = 0.0f;
+		
+		float dominoHeight = 2.0f;
 
-		for (int i = 4; i < maxPoints; i++)
+		for (int i = 2; i < maxPoints; i++)
 		{
-			angle = 0.1 * i;
+			if (i % 30 == 0) dominoHeight++;
+
+			angle = 0.15 * i;
 			x = (a + b * angle) * cos(angle);
-			y = (a + b * angle) * sin(angle);
+			z = (a + b * angle) * sin(angle);
 
-			GameObject* temp = CreateGameObject(new btBoxShape(btVector3(1.5f, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
-			temp->setRotationYaw(angle);
-			//CreateGameObject(new btBoxShape(btVector3(2.0, 0.1, 1.0)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)y /* Depth */));
+			GameObject* temp = CreateGameObject(new btBoxShape(btVector3(dominoHeight, 1.5f, 0.1f)), 1.0, btVector3(2.0f, 0.2f, 0.8f), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)z /* Depth */));
 
+			float dirX = -(a + b * angle) * sin(angle) + (b * cos(angle));
+			float dirZ = (a + b * angle) * cos(angle) + (b * sin(angle));
+			//float newAngle = atan2(dirX, dirZ) * 180 / PI;
+			float newAngle = atan2(dirX, dirZ);
+			printf("dirX: %f - dirZ: %f - angle: %f\n", dirX, dirZ, newAngle);
+			temp->setRotationYaw(newAngle);
+			
+			previousX = x;
+			previousZ = z;
 		}
 	}
 	else if (type == LOGARITHMIC)
