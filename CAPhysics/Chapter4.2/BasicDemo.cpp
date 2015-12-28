@@ -28,23 +28,9 @@ void BasicDemo::ShutdownPhysics() {
 void BasicDemo::CreateObjects() {
 	// create a ground plane
 	CreateGameObject(new btBoxShape(btVector3(1,50,50)), 0, btVector3(0.2f, 0.6f, 0.6f), btVector3(0.0f, 0.0f, 0.0f));
-	// create our original red box
-	//CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(-0.5f, 10.0f, 0.0f));
-	//GameObject* obj = CreateGameObject(new btBoxShape(btVector3(1.5,0.1,1.0)), 0.0, btVector3(1.0f, 0.2f, 0.2f), btVector3(0.0f, 5.0f, 0.0f));
-	// create a second box
-	//GameObject* test = CreateGameObject(new btBoxShape(btVector3(1.5,0.1,1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(1.0f, 0.0f, 0.0f));
-	//test->setRotationYaw(90);
-	//CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 0.0f, -0.2f));
-	//CreateGameObject(new btBoxShape(btVector3(1.5, 0.1, 1.0)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(3.0f, 0.0f, -0.4f));
-
 	
-	//GameObject* sphere = CreateGameObject(new btSphereShape(1), 10.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(-0.5f, 0.0f, 0.0f));
-	//sphere->GetRigidBody()->applyCentralImpulse(btVector3(50.0f, 0, 0));
-	//sphere->GetRigidBody()->applyTorque(btVector3(25.0f, 0, 0));
-
+	// Create blue box to hit first domino
 	CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 8.0f, 0.0f));
-	//CreateGameObject(new btBoxShape(btVector3(0.1,0.1,1.0)), 1.0, btVector3(1.0f, 0.2f, 0.2f), btVector3(0.0f, 0.0f, 0.0f));
-	
 	
 	// Create domino patterns using enum in BasicDemo.h
 	CreatePattern(100, SPIRAL);
