@@ -71,7 +71,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 		float x = 0;
 		float z = 0;
 		float angle = 0.0f;
-		int a = 2, b = 2;
+		float a = 2, b = 2;
 		float previousX = 0.0f;
 		float previousZ = 0.0f;
 		
@@ -104,7 +104,40 @@ void Dominos::CreatePattern(int maxPoints, int type)
 	}
 	else if (type == LOGARITHMIC)
 	{
-		// Log pattern
+		
+		float a = 0.1;
+		float b = 2;
+		float speed = 1;
+		int angle = 0;
+
+		float previousX = 0.0f;
+		float previousZ = 0.0f;
+
+		// Create blue box to hit first domino
+		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, 0.0f));
+
+		for (int i = 1; i <= maxPoints; i++){
+			
+			colorRed = RandomColor(2.0f);
+			colorGreen = RandomColor(2.0f);
+			colorBlue = RandomColor(2.0f);
+	
+			angle += speed;
+			dominoHeight += 0.1f;
+
+			float x = (a * cos(angle)) * (b * angle);
+			float z = (a * sin(angle)) * (b * angle);
+			
+			GameObject* temp = CreateGameObject(new btBoxShape(btVector3(dominoHeight, 0.1f, 1.5f)), 1.0, btVector3(colorRed, colorGreen, colorBlue), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)z /* Depth */));
+
+			float dirX = -(a + b * angle) * sin(angle) + (b * cos(angle));
+			float dirZ = (a + b * angle) * cos(angle) + (b * sin(angle));
+			float newAngle = atan2(dirX, dirZ);
+			temp->setRotationYaw(newAngle);
+
+			previousX = x;
+			previousZ = z;
+		}
 	}
 	else if (type == WAVE)
 	{
