@@ -34,6 +34,11 @@ public:
 	// Reset the simulation to allow different patterns
 	virtual void resetSimulation(int pattern);
 
+	// Derived class keyboard
+	virtual void Keyboard(unsigned char key, int x, int y);
+
 protected:
 	int patternType;
+
+	GameObject* ball;
 };

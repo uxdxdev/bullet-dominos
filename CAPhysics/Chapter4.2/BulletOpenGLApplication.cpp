@@ -15,7 +15,6 @@
 
 // Some constants for 3D math and the camera speed
 #define RADIANS_PER_DEGREE 0.01745329f
-#define CAMERA_STEP_SIZE 5.0f
 
 BulletOpenGLApplication::BulletOpenGLApplication() 
 :
@@ -88,33 +87,25 @@ void BulletOpenGLApplication::Initialize() {
 void BulletOpenGLApplication::Keyboard(unsigned char key, int x, int y) {
 	// This function is called by FreeGLUT whenever
 	// generic keys are pressed down.
-	switch(key) {
-	// 'z' zooms in
-	case 'z': 
-		ZoomCamera(+CAMERA_STEP_SIZE); 
+	switch (key) {
+		// 'z' zooms in
+	case 'z':
+		ZoomCamera(+CAMERA_STEP_SIZE);
 		break;
-	// 'x' zoom out
-	case 'x': 
-		ZoomCamera(-CAMERA_STEP_SIZE); 
+		// 'x' zoom out
+	case 'x':
+		ZoomCamera(-CAMERA_STEP_SIZE);
 		break;
-	case 'w':
-	// toggle wireframe debug drawing
+	case 'q':
+		// toggle wireframe debug drawing
 		m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
 		break;
 	case 'b':
 		// toggle AABB debug drawing
-		m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);			
-		break;
-	case '1':
-		resetSimulation(SPIRAL);
-		break;
-	case '2':
-		resetSimulation(LOGARITHMIC);
-		break;
-	case '3':
-		resetSimulation(WAVE);
-		break;
+		m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);
+		break;	
 	}
+
 }
 
 void BulletOpenGLApplication::KeyboardUp(unsigned char key, int x, int y) {}
@@ -318,6 +309,10 @@ void BulletOpenGLApplication::DrawBox(const btVector3 &halfSize) {
 	glEnd();
 }
 
+void BulletOpenGLApplication::DrawSphere(float radius) {
+	glutSolidSphere(radius, 100, 100);
+}
+
 void BulletOpenGLApplication::RotateCamera(float &angle, float value) {
 	// change the value (it is passed by reference, so we
 	// can edit it here)
@@ -391,6 +386,13 @@ void BulletOpenGLApplication::DrawShape(btScalar* transform, const btCollisionSh
 			DrawBox(halfSize);
 			break;
 		}
+	case SPHERE_SHAPE_PROXYTYPE:
+	{
+		const btSphereShape* sphere = static_cast<const btSphereShape*>(pShape);
+		float radius = sphere->getRadius();
+		DrawSphere(radius);
+		break;
+	}
 	default:
 		// unsupported type
 		break;
