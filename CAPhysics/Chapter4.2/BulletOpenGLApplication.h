@@ -32,6 +32,8 @@
 // a convenient typedef to reference an STL vector of GameObjects
 typedef std::vector<GameObject*> GameObjects;
 
+#define CAMERA_STEP_SIZE 5.0f
+
 // Domino patterns
 enum Pattern {
 	SPIRAL,
@@ -75,6 +77,7 @@ public:
 
 	// drawing functions
 	void DrawBox(const btVector3 &halfSize);
+	void DrawSphere(const float radius);
 	void DrawShape(btScalar* transform, const btCollisionShape* pShape, const btVector3 &color);
 
 	// object functions
