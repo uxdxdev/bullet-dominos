@@ -5,7 +5,6 @@ Bullet/lib/
 *.suo
 
 Temp/
-build/
 obj/
 *.exe
 *.ilk
