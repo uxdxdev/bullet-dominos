@@ -16,6 +16,8 @@
 #include <cstdlib>
 #include <ctime>
 
+Dominos::Dominos() : patternType(WAVE) {}
+
 void Dominos::InitializePhysics() {
 	// create the collision configuration
 	m_pCollisionConfiguration = new btDefaultCollisionConfiguration();
@@ -45,10 +47,10 @@ void Dominos::ShutdownPhysics() {
 
 void Dominos::CreateObjects() {
 	// create a ground plane
-	CreateGameObject(new btBoxShape(btVector3(1,50,50)), 0, btVector3(0.2f, 0.6f, 0.6f), btVector3(0.0f, 0.0f, 0.0f));
-		
+	CreateGameObject(new btBoxShape(btVector3(1, 50, 50)), 0, btVector3(0.2f, 0.6f, 0.6f), btVector3(0.0f, 0.0f, 0.0f));
+
 	// Create domino patterns using enum in Dominos.h
-	CreatePattern(110, WAVE);
+	CreatePattern(110, patternType);
 }
 
 float Dominos::RandomColor(float maxValue)
@@ -75,7 +77,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 		float a = 2, b = 2;
 		float previousX = 0.0f;
 		float previousZ = 0.0f;
-		
+
 		// Create blue box to hit first domino
 		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 8.0f, 0.0f));
 
@@ -98,14 +100,14 @@ void Dominos::CreatePattern(int maxPoints, int type)
 			float newAngle = atan2(dirX, dirZ);
 			printf("dirX: %f - dirZ: %f - angle: %f\n", dirX, dirZ, newAngle);
 			temp->setRotationYaw(newAngle);
-			
+
 			previousX = x;
 			previousZ = z;
 		}
 	}
 	else if (type == LOGARITHMIC) // Create a Logarithmic spiral
 	{
-		
+
 		float a = 0.1;
 		float b = 2;
 		float speed = 1;
@@ -117,18 +119,18 @@ void Dominos::CreatePattern(int maxPoints, int type)
 		// Create blue box to hit first domino
 		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, 0.0f));
 
-		for (int i = 1; i <= maxPoints; i++){
-			
+		for (int i = 1; i <= maxPoints; i++) {
+
 			colorRed = RandomColor(2.0f);
 			colorGreen = RandomColor(2.0f);
 			colorBlue = RandomColor(2.0f);
-	
+
 			angle += speed;
 			dominoHeight += 0.1f;
 
 			float x = (a * cos(angle)) * (b * angle);
 			float z = (a * sin(angle)) * (b * angle);
-			
+
 			GameObject* temp = CreateGameObject(new btBoxShape(btVector3(dominoHeight, 0.1f, 1.5f)), 1.0, btVector3(colorRed, colorGreen, colorBlue), btVector3((float)x /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)z /* Depth */));
 
 			float dirX = -(a + b * angle) * sin(angle) + (b * cos(angle));
@@ -145,7 +147,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 		float waveX = 0.0f;
 		float waveZ = 0.0f;
 		float first = 0.0f, second = 1.0f, next;
-		
+
 		float previousX = 0.0f;
 		float previousZ = 0.0f;
 		// Create blue box to hit first domino
@@ -159,7 +161,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 			colorBlue = RandomColor(2.0f);
 
 			dominoHeight += 0.2f;
-			
+
 			waveX = sin(waveZ);
 
 			GameObject *temp = CreateGameObject(new btBoxShape(btVector3(dominoHeight, 1.5, 0.1)), 1.0, btVector3(colorRed, colorGreen, colorBlue), btVector3((float)waveX /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)waveZ /* Depth */));
@@ -172,4 +174,39 @@ void Dominos::CreatePattern(int maxPoints, int type)
 			previousZ = waveZ;
 		}
 	}
+}
+
+void Dominos::Keyboard(unsigned char key, int x, int y) {
+	//Override of key functions
+	//Change the pattern type with keys 1-3
+	switch (key) {
+	case '1':
+		resetSimulation(SPIRAL);
+		break;
+	case '2':
+		resetSimulation(LOGARITHMIC);
+		break;
+	case '3':
+		resetSimulation(WAVE);
+		break;
+	}
+}
+
+void Dominos::resetSimulation(int pattern) {
+	//Change pattern type
+	patternType = pattern;
+
+	//Shutdown the physics engine
+	ShutdownPhysics();
+
+	//Delete all the objects
+	for (GameObject* o : m_objects) {
+		delete o;
+	}
+
+	//Clear all of the objects
+	m_objects.clear();
+
+	//Restart physics
+	InitializePhysics();
 }
