@@ -1,3 +1,16 @@
+// 
+// Game Physics Assignment Year 4
+//
+// David Morton K00179391
+// Michael O' Reilly K00...
+//
+// Dominos
+//
+// 3D application demonstrating the Bullet physics engine and the FreeGLUT OpenGL library. 
+//
+// Dominos uses algorithmic patterns to place dominos in the 3d scene and provides physics simulations using
+// the Bullet physics engine. FreeGLUT is used for rendering. 
+//
 #ifndef _BULLETOPENGLAPP_H_
 #define _BULLETOPENGLAPP_H_
 
@@ -43,7 +56,7 @@ public:
 	// scene updating. Can be overridden by derived classes
 	virtual void UpdateScene(float dt);
 
-	// physics functions. Can be overrideen by derived classes (like BasicDemo)
+	// physics functions. Can be overrideen by derived classes (like Dominos)
 	virtual void InitializePhysics() {};
 	virtual void ShutdownPhysics() {};
 
