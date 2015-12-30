@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chapter4.2", "Chapter4.2\Chapter4.2.vcxproj", "{9C0711E4-7CA4-48F2-B73A-D2340839110A}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dominos", "Chapter4.2\Chapter4.2.vcxproj", "{9C0711E4-7CA4-48F2-B73A-D2340839110A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{28D36A0F-B790-D748-BC8C-8FB422E45492} = {28D36A0F-B790-D748-BC8C-8FB422E45492}
 		{58D08522-C69F-904C-A7ED-733DA229F1BA} = {58D08522-C69F-904C-A7ED-733DA229F1BA}
@@ -53,6 +55,7 @@ Global
 		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release_Static|x64.Build.0 = Release|x64
 		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release|Win32.ActiveCfg = Release|Win32
 		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release|Win32.Build.0 = Release|Win32
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release|Win32.Deploy.0 = Release|Win32
 		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release|x64.ActiveCfg = Release|x64
 		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release|x64.Build.0 = Release|x64
 		{28D36A0F-B790-D748-BC8C-8FB422E45492}.Debug_Static|Win32.ActiveCfg = Debug|x64

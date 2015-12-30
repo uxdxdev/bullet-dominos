@@ -176,22 +176,6 @@ void Dominos::CreatePattern(int maxPoints, int type)
 	}
 }
 
-void Dominos::Keyboard(unsigned char key, int x, int y) {
-	//Override of key functions
-	//Change the pattern type with keys 1-3
-	switch (key) {
-	case '1':
-		resetSimulation(SPIRAL);
-		break;
-	case '2':
-		resetSimulation(LOGARITHMIC);
-		break;
-	case '3':
-		resetSimulation(WAVE);
-		break;
-	}
-}
-
 void Dominos::resetSimulation(int pattern) {
 	//Change pattern type
 	patternType = pattern;
