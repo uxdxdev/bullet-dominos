@@ -65,6 +65,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 
 	float dominoHeight = 2.0f;
 
+	// Create an Archimedean spiral
 	if (type == SPIRAL)
 	{
 		// create spiral dominos
@@ -102,7 +103,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 			previousZ = z;
 		}
 	}
-	else if (type == LOGARITHMIC)
+	else if (type == LOGARITHMIC) // Create a Logarithmic spiral
 	{
 		
 		float a = 0.1;
@@ -139,7 +140,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 			previousZ = z;
 		}
 	}
-	else if (type == WAVE)
+	else if (type == WAVE) // Create a Sine wave
 	{
 		float waveX = 0.0f;
 		float waveZ = 0.0f;
