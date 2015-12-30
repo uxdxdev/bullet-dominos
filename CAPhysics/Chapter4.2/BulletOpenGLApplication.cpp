@@ -1,3 +1,16 @@
+// 
+// Game Physics Assignment Year 4
+//
+// David Morton K00179391
+// Michael O' Reilly K00...
+//
+// Dominos
+//
+// 3D application demonstrating the Bullet physics engine and the FreeGLUT OpenGL library. 
+//
+// Dominos uses algorithmic patterns to place dominos in the 3d scene and provides physics simulations using
+// the Bullet physics engine. FreeGLUT is used for rendering. 
+//
 #include "BulletOpenGLApplication.h"
 
 // Some constants for 3D math and the camera speed
@@ -87,7 +100,7 @@ void BulletOpenGLApplication::Keyboard(unsigned char key, int x, int y) {
 /*ADD*/	
 /*ADD*/		case 'b':
 /*ADD*/			// toggle AABB debug drawing
-/*ADD*/			m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);
+/*ADD*/			m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);			
 /*ADD*/			break;
 	}
 }

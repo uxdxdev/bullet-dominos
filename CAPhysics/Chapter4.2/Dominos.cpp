@@ -1,9 +1,22 @@
-#include "BasicDemo.h"
+// 
+// Game Physics Assignment Year 4
+//
+// David Morton K00179391
+// Michael O' Reilly K00...
+//
+// Dominos
+//
+// 3D application demonstrating the Bullet physics engine and the FreeGLUT OpenGL library. 
+//
+// Dominos uses algorithmic patterns to place dominos in the 3d scene and provides physics simulations using
+// the Bullet physics engine. FreeGLUT is used for rendering. 
+//
+#include "Dominos.h"
 #include <math.h>
 #include <cstdlib>
 #include <ctime>
 
-void BasicDemo::InitializePhysics() {
+void Dominos::InitializePhysics() {
 	// create the collision configuration
 	m_pCollisionConfiguration = new btDefaultCollisionConfiguration();
 	// create the dispatcher
@@ -22,7 +35,7 @@ void BasicDemo::InitializePhysics() {
 	CreateObjects();
 }
 
-void BasicDemo::ShutdownPhysics() {
+void Dominos::ShutdownPhysics() {
 	delete m_pWorld;
 	delete m_pSolver;
 	delete m_pBroadphase;
@@ -30,21 +43,21 @@ void BasicDemo::ShutdownPhysics() {
 	delete m_pCollisionConfiguration;
 }
 
-void BasicDemo::CreateObjects() {
+void Dominos::CreateObjects() {
 	// create a ground plane
 	CreateGameObject(new btBoxShape(btVector3(1,50,50)), 0, btVector3(0.2f, 0.6f, 0.6f), btVector3(0.0f, 0.0f, 0.0f));
 		
-	// Create domino patterns using enum in BasicDemo.h
+	// Create domino patterns using enum in Dominos.h
 	CreatePattern(110, SPIRAL);
 }
 
-float BasicDemo::RandomColor(float maxValue)
+float Dominos::RandomColor(float maxValue)
 {
 	float randomColor = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / maxValue));
 	return randomColor;
 }
 
-void BasicDemo::CreatePattern(int maxPoints, int type)
+void Dominos::CreatePattern(int maxPoints, int type)
 {
 	float colorRed = 0.0f;
 	float colorGreen = 0.0f;
@@ -62,9 +75,6 @@ void BasicDemo::CreatePattern(int maxPoints, int type)
 		float previousX = 0.0f;
 		float previousZ = 0.0f;
 		
-
-		
-
 		// Create blue box to hit first domino
 		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 8.0f, 0.0f));
 
