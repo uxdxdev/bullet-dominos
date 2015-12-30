@@ -3,7 +3,7 @@ Bullet/Extras/AllBulletDemosOSX/AllBulletDemos_Prefix.pch
 Bullet/file.obj
 Bullet/lib/
 *.suo
-
+Debug/
 Temp/
 obj/
 *.exe
