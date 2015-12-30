@@ -5,3 +5,5 @@ Bullet/lib/
 Chapter4.2.v12.suo
 Lib/
 Temp/
+build/
+obj/
