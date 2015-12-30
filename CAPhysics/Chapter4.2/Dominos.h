@@ -17,7 +17,7 @@
 #define PI 3.14159265
 
 // Domino patterns
-enum Pattern{
+enum Pattern {
 	SPIRAL,
 	LOGARITHMIC,
 	WAVE
@@ -25,6 +25,8 @@ enum Pattern{
 
 class Dominos : public BulletOpenGLApplication {
 public:
+	Dominos();
+
 	virtual void InitializePhysics() override;
 	virtual void ShutdownPhysics() override;
 
@@ -35,4 +37,10 @@ public:
 
 	float RandomColor(float maxValue);
 
+	void resetSimulation(int pattern);
+
+	void Keyboard(unsigned char key, int x, int y) override;
+
+protected:
+	int patternType;
 };
