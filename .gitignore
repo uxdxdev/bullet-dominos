@@ -4,6 +4,7 @@ Bullet/file.obj
 Bullet/lib/
 *.suo
 Debug/
+Lib/
 Temp/
 obj/
 *.exe
