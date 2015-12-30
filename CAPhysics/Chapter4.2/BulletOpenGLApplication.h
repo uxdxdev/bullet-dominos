@@ -32,6 +32,12 @@
 // a convenient typedef to reference an STL vector of GameObjects
 typedef std::vector<GameObject*> GameObjects;
 
+// Domino patterns
+enum Pattern {
+	SPIRAL,
+	LOGARITHMIC,
+	WAVE
+};
 
 class BulletOpenGLApplication {
 public:
@@ -59,6 +65,8 @@ public:
 	// physics functions. Can be overrideen by derived classes (like Dominos)
 	virtual void InitializePhysics() {};
 	virtual void ShutdownPhysics() {};
+
+	virtual void resetSimulation(int pattern){};
 
 	// camera functions
 	void UpdateCamera();
@@ -105,5 +113,9 @@ protected:
 
 	/*ADD*/		// debug renderer
 	/*ADD*/		DebugDrawer* m_pDebugDrawer;
+	
+	int patternType;
+
+
 };
 #endif

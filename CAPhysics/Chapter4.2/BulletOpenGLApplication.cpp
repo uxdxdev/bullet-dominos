@@ -89,19 +89,31 @@ void BulletOpenGLApplication::Keyboard(unsigned char key, int x, int y) {
 	// This function is called by FreeGLUT whenever
 	// generic keys are pressed down.
 	switch(key) {
-		// 'z' zooms in
-	case 'z': ZoomCamera(+CAMERA_STEP_SIZE); break;
-		// 'x' zoom out
-	case 'x': ZoomCamera(-CAMERA_STEP_SIZE); break;
-/*ADD*/		case 'w':
-/*ADD*/			// toggle wireframe debug drawing
-/*ADD*/			m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
-/*ADD*/			break;
-/*ADD*/	
-/*ADD*/		case 'b':
-/*ADD*/			// toggle AABB debug drawing
-/*ADD*/			m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);			
-/*ADD*/			break;
+	// 'z' zooms in
+	case 'z': 
+		ZoomCamera(+CAMERA_STEP_SIZE); 
+		break;
+	// 'x' zoom out
+	case 'x': 
+		ZoomCamera(-CAMERA_STEP_SIZE); 
+		break;
+	case 'w':
+	// toggle wireframe debug drawing
+		m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
+		break;
+	case 'b':
+		// toggle AABB debug drawing
+		m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);			
+		break;
+	case '1':
+		resetSimulation(SPIRAL);
+		break;
+	case '2':
+		resetSimulation(LOGARITHMIC);
+		break;
+	case '3':
+		resetSimulation(WAVE);
+		break;
 	}
 }
 

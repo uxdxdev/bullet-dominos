@@ -16,13 +16,6 @@
 
 #define PI 3.14159265
 
-// Domino patterns
-enum Pattern {
-	SPIRAL,
-	LOGARITHMIC,
-	WAVE
-};
-
 class Dominos : public BulletOpenGLApplication {
 public:
 	Dominos();
@@ -35,11 +28,11 @@ public:
 	// Create Domino patterns based on algorithm choice
 	void CreatePattern(int maxPoints, int type);
 
+	// Pick a random color for each domino
 	float RandomColor(float maxValue);
 
-	void resetSimulation(int pattern);
-
-	void Keyboard(unsigned char key, int x, int y) override;
+	// Reset the simulation to allow different patterns
+	virtual void resetSimulation(int pattern);
 
 protected:
 	int patternType;
