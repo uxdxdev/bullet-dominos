@@ -79,7 +79,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 		float previousZ = 0.0f;
 
 		// Create blue box to hit first domino
-		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 8.0f, 0.0f));
+		ball = CreateGameObject(new btSphereShape(1.0f), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(2.0f, 8.0f, 0.0f));
 
 		for (int i = 2; i < maxPoints; i++)
 		{
@@ -117,7 +117,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 		float previousZ = 0.0f;
 
 		// Create blue box to hit first domino
-		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, 0.0f));
+		ball = CreateGameObject(new btSphereShape(1.0f), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, 0.0f));
 
 		for (int i = 1; i <= maxPoints; i++) {
 
@@ -150,8 +150,9 @@ void Dominos::CreatePattern(int maxPoints, int type)
 
 		float previousX = 0.0f;
 		float previousZ = 0.0f;
+
 		// Create blue box to hit first domino
-		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, -30.0f));
+		ball = CreateGameObject(new btSphereShape(1.0f), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, -30.0f));
 
 		// X Axis
 		for (waveZ = -30; waveZ < maxPoints; waveZ++)
@@ -177,6 +178,7 @@ void Dominos::CreatePattern(int maxPoints, int type)
 }
 
 void Dominos::Keyboard(unsigned char key, int x, int y) {
+	BulletOpenGLApplication::Keyboard(key, x, y);
 	//Override of key functions
 	//Change the pattern type with keys 1-3
 	switch (key) {
@@ -188,6 +190,18 @@ void Dominos::Keyboard(unsigned char key, int x, int y) {
 		break;
 	case '3':
 		resetSimulation(WAVE);
+		break;
+	case 'w':
+		ball->GetRigidBody()->applyCentralImpulse(btVector3(0, 0, -0.5f));
+		break;
+	case 'a':
+		ball->GetRigidBody()->applyCentralImpulse(btVector3(-0.5f, 0, 0.0f));
+		break;
+	case 's':
+		ball->GetRigidBody()->applyCentralImpulse(btVector3(0, 0, 0.5f));
+		break;
+	case 'd':
+		ball->GetRigidBody()->applyCentralImpulse(btVector3(0.5f, 0, 0.0f));
 		break;
 	}
 }
@@ -209,4 +223,11 @@ void Dominos::resetSimulation(int pattern) {
 
 	//Restart physics
 	InitializePhysics();
+
+	// create the debug drawer
+	m_pDebugDrawer = new DebugDrawer();
+	// set the initial debug level to 0
+	m_pDebugDrawer->setDebugMode(0);
+	// add the debug drawer to the world
+	m_pWorld->setDebugDrawer(m_pDebugDrawer);
 }

@@ -39,8 +39,10 @@ public:
 
 	void resetSimulation(int pattern);
 
-	void Keyboard(unsigned char key, int x, int y) override;
+	void Keyboard(unsigned char key, int x, int y);
 
 protected:
 	int patternType;
+
+	GameObject* ball;
 };

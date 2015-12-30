@@ -93,7 +93,7 @@ void BulletOpenGLApplication::Keyboard(unsigned char key, int x, int y) {
 	case 'z': ZoomCamera(+CAMERA_STEP_SIZE); break;
 		// 'x' zoom out
 	case 'x': ZoomCamera(-CAMERA_STEP_SIZE); break;
-/*ADD*/		case 'w':
+/*ADD*/		case 'q':
 /*ADD*/			// toggle wireframe debug drawing
 /*ADD*/			m_pDebugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
 /*ADD*/			break;
@@ -306,6 +306,10 @@ void BulletOpenGLApplication::DrawBox(const btVector3 &halfSize) {
 	glEnd();
 }
 
+void BulletOpenGLApplication::DrawSphere(float radius) {
+	glutSolidSphere(radius, 100, 100);
+}
+
 void BulletOpenGLApplication::RotateCamera(float &angle, float value) {
 	// change the value (it is passed by reference, so we
 	// can edit it here)
@@ -379,6 +383,13 @@ void BulletOpenGLApplication::DrawShape(btScalar* transform, const btCollisionSh
 			DrawBox(halfSize);
 			break;
 		}
+	case SPHERE_SHAPE_PROXYTYPE:
+	{
+		const btSphereShape* sphere = static_cast<const btSphereShape*>(pShape);
+		float radius = sphere->getRadius();
+		DrawSphere(radius);
+		break;
+	}
 	default:
 		// unsupported type
 		break;
