@@ -231,7 +231,5 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-Bullet/
-FreeGLUT/
 Lib/
 Temp/
