@@ -2,7 +2,7 @@
 // Game Physics Assignment Year 4
 //
 // David Morton K00179391
-// Michael O' Reilly K00...
+// Michael O' Reilly K00171850
 //
 // Dominos
 //
@@ -48,7 +48,7 @@ void Dominos::CreateObjects() {
 	CreateGameObject(new btBoxShape(btVector3(1,50,50)), 0, btVector3(0.2f, 0.6f, 0.6f), btVector3(0.0f, 0.0f, 0.0f));
 		
 	// Create domino patterns using enum in Dominos.h
-	CreatePattern(110, SPIRAL);
+	CreatePattern(110, WAVE);
 }
 
 float Dominos::RandomColor(float maxValue)
@@ -109,33 +109,33 @@ void Dominos::CreatePattern(int maxPoints, int type)
 	else if (type == WAVE)
 	{
 		float waveX = 0.0f;
-		float waveY = 0.0f;
+		float waveZ = 0.0f;
 		float first = 0.0f, second = 1.0f, next;
-				
+		
+		float previousX = 0.0f;
+		float previousZ = 0.0f;
 		// Create blue box to hit first domino
-		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, 0.0f));
+		CreateGameObject(new btBoxShape(btVector3(1, 1, 1)), 1.0, btVector3(0.0f, 0.2f, 0.8f), btVector3(0.0f, 8.0f, -30.0f));
 
 		// X Axis
-		for (waveX = -50; waveX < maxPoints; waveX++)
+		for (waveZ = -30; waveZ < maxPoints; waveZ++)
 		{
 			colorRed = RandomColor(2.0f);
 			colorGreen = RandomColor(2.0f);
 			colorBlue = RandomColor(2.0f);
 
-			dominoHeight += 0.1f;
+			dominoHeight += 0.2f;
+			
+			waveX = sin(waveZ);
 
-			if (waveX <= 1)
-				next = waveX;
-			else
-			{
-				next = first + second;
-				first = second;
-				second = next;
-			}
+			GameObject *temp = CreateGameObject(new btBoxShape(btVector3(dominoHeight, 1.5, 0.1)), 1.0, btVector3(colorRed, colorGreen, colorBlue), btVector3((float)waveX /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)waveZ /* Depth */));
+			float dirX = waveX - previousX;
+			float dirZ = waveZ - previousZ;
+			float newAngle = atan2(dirX, dirZ);
+			temp->setRotationYaw(newAngle);
 
-			waveY = sin(waveX) - 0.5*waveX;
-
-			CreateGameObject(new btBoxShape(btVector3(dominoHeight, 0.1, 1.5)), 1.0, btVector3(colorRed, colorGreen, colorBlue), btVector3((float)waveX /* X Axis left or right */, 0.0f /* Domino sitting on the ground */, (float)waveY /* Depth */));
+			previousX = waveX;
+			previousZ = waveZ;
 		}
 	}
 }
