@@ -20,4 +20,6 @@ public:
 	// Create Domino patterns based on algorithm choice
 	void CreatePattern(int maxPoints, int type);
 
+	float RandomColor(float maxValue);
+
 };
